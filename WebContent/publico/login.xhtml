@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags">
+<f:view locale="pt_BR" encoding="UTF-8" contentType="text/html">
+	<h:head>
+		<title>Login</title>
+		<h:outputStylesheet library="css" name="loginEstilos.css"></h:outputStylesheet>
+		<h:outputStylesheet library="css" name="tooltipEstilos.css"></h:outputStylesheet>
+	</h:head>
+	<h:body>
+
+		<h:form id="form">
+
+			<h:panelGroup layout="block" styleClass="container">
+
+				<p:menubar>
+					<p:menuitem id="login" value="Login" icon="ui-icon-person"
+						oncomplete="PF('dlg').show()" styleClass="redIcon" />
+					<p:submenu label="Ajuda" icon="ui-icon-help">
+						<p:menuitem value="Manual do Usuário"
+							url="../resources/pdf/manual.pdf" target="_blank" />
+						<p:separator />
+						<p:menuitem id="sobre" value="Sobre"
+							oncomplete="PF('about').show()" />
+					</p:submenu>
+				</p:menubar>
+				<p:tooltip id="toolTipLogin" for="login" value="Acesso ao sistema" />
+
+				<h:panelGroup layout="block" styleClass="content">
+					<p:graphicImage id="controlSecLogoVertical" library="images"
+						name="controlSecLogoVertical.png" styleClass="logoContent" />
+				</h:panelGroup>
+			</h:panelGroup>
+
+			<h:panelGroup layout="block" styleClass="footer">
+				<br />
+				<h:outputText value="© Copyright 2014" styleClass="copyright" />
+				<br />
+				<p:graphicImage library="images" name="separador.png"
+					styleClass="separadorFooter" />
+				<br />
+				<br />
+				<p:graphicImage library="images" name="controlSecLogoHorizontal.png"
+					styleClass="logoFooter" />
+			</h:panelGroup>
+		</h:form>
+
+		<p:dialog header="Login" widgetVar="dlg" resizable="false"
+			modal="true" showEffect="fade" hideEffect="fade" closeOnEscape="true">
+
+			<form id="login" method="post"
+				action="#{request.contextPath}/j_spring_security_check">
+
+				<h:panelGrid columns="2" cellspacing="10">
+
+					<h:outputLabel for="j_username" value="Login: " />
+					<p:inputText id="j_username" required="true" size="30"
+						placeholder="nome@exemplo.com" />
+
+					<h:outputLabel for="j_password" value="Senha:" />
+					<p:password id="j_password" required="true" size="30"
+						placeholder="senha" />
+
+					<f:facet name="footer">
+						<center>
+							<p:commandButton id="entrar" value="Entrar" icon="ui-icon-check"
+								onclick="#{request.contextPath}/j_spring_security_check" />
+						</center>
+					</f:facet>
+				</h:panelGrid>
+			</form>
+		</p:dialog>
+
+		<p:dialog header="Sobre" widgetVar="about" resizable="false"
+			modal="true" showEffect="fade" hideEffect="fade">
+
+			<h:panelGrid columns="2" columnClasses="label,value" cellspacing="5">
+				<h:outputText value="Versão:" />
+				<h:outputText styleClass="about" value="Control Sec Beta" />
+
+				<h:outputText value="Linguagem:" />
+				<h:outputText styleClass="about" value="Java EE" />
+
+				<h:outputText value="Desenvolvimento:" />
+				<h:outputText styleClass="about" value="Eclipse Kepler SR2" />
+
+				<h:outputText value="Segurança:" />
+				<h:outputText styleClass="about" value="Spring Security 3.0.5" />
+
+				<h:outputText value="Objetivo:" />
+				<h:outputText styleClass="about"
+					value="Trabalho de Conclusão de Curso" />
+
+				<h:outputText value="Grupo:" />
+				<h:outputText styleClass="about"
+					value="Fábio, John, Márcio, Richadson" />
+
+				<h:outputText value="Ícones Toolbar:" />
+				<h:outputLink value="http://pc.de/icons" target="_blank"
+					styleClass="link">
+					<h:outputText value="PC.DE - Creative Commons" />
+				</h:outputLink>
+
+				<h:outputText value="Fontes Logotipos:" />
+				<h:panelGroup layout="block">
+					<h:outputLink value="http://www.pizzadude.dk" target="_blank"
+						styleClass="link">
+						<h:outputText value="High Security;" />
+					</h:outputLink>
+					<h:outputLink value="http://goo.gl/8tkFeS" target="_blank"
+						styleClass="link">
+						<h:outputText value=" Maximum Security" />
+					</h:outputLink>
+				</h:panelGroup>
+			</h:panelGrid>
+		</p:dialog>
+	</h:body>
+</f:view>
+</html>

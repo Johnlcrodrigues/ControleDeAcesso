@@ -1,0 +1,45 @@
+/* inicio usuario */
+.tooltipLogout {
+	background-color: #FFF !important;
+	color: #000 !important;
+}
+
+.tooltipUser {
+	-webkit-border-top-left-radius: 0px !important;
+	-moz-border-radius-topleft: 0px !important;
+	border-top-left-radius: 0px !important;
+}
+
+.ui-tooltip {
+	background-color: #202020;
+	border: 1px solid #202020;
+	color: #FFF;
+	opacity: 0.9;
+	-moz-box-shadow: #333 0px 3px 5px 0px;
+	-webkit-box-shadow: #333 0px 3px 5px 0px;
+	box-shadow: #333 0px 3px 10px 0px;
+}
+
+/* http://csstooltip.com/ */
+.tooltipUser:AFTER {
+	content: "" !important;
+	position: absolute !important;
+	width: 0 !important;
+	height: 0 !important;
+	border-width: 6px !important;
+	border-style: solid !important;
+	/* Direção da seta: bottom, left, top, right */
+	border-color: transparent transparent #202020 transparent !important;
+	top: -13px !important;
+	left: -1px !important;
+}
+/* fim usuario */
+
+
+/* Mensagem de erros  */
+
+.messages {
+	font-weight: bold;
+}
+
+

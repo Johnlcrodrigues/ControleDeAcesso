@@ -1,0 +1,119 @@
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+.ui-widget,.ui-widget .ui-widget {
+	font-size: 90% !important;
+}
+
+.redIcon .ui-icon {
+	background-image: url("../resources/images/ui-icons_cd0a0a_256x240.png")
+		!important;
+	);
+}
+
+.blackIcon .ui-icon {
+	background-image: url("../resources/images/ui-icons_222222_256x240.png")
+		!important;
+	);
+}
+
+.about {
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.link {
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.link:HOVER {
+	color: red;
+}
+
+/* .dialogAbout {
+	width: 390px !important;
+	height: 225px !important;
+} */
+.copyright {
+	color: #FFF;
+	font-family: calibri, arial !important;
+}
+
+html,body,.container {
+	height: 100%;
+	background: #BFBFBF;
+}
+
+body>.container {
+	height: auto;
+	min-height: 100%;
+	min-width: 100%;
+}
+
+.logoFooter {
+	background: transparent;
+	width: 220px;
+	height: 40px;
+}
+
+.separadorFooter {
+	background: transparent;
+	width: 1000px;
+	height: 5px;
+}
+
+.logoContent {
+	background: transparent;
+	width: 800px;
+	height: 500px;
+	text-align: center;
+	opacity: 0.7;
+	margin-top: 100px;
+}
+
+/* Redimensiona a imagem de acordo com o tamanho da janela */
+.content {
+	/*	background-image: url("../resources/images/fundoPrincipal.jpg");
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-attachment: fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover; 
+	background-size: cover;
+	height: 810px;*/
+	background: #BFBFBF;
+	min-height: auto;
+	min-width: 100%;
+	position: absolute;
+	text-align: center;
+}
+
+.footer {
+	clear: both;
+	position: relative;
+	height: 150px;
+	margin-top: 763px;
+	background-color: #202020;
+	border-top: 1px solid #cbcbcb;
+	text-align: center;
+	-moz-box-shadow: #333 0px -3px 30px 5px;
+	-webkit-box-shadow: #333 0px -3px 30px 5px;
+	box-shadow: #333 0px -3px 30px 5px;
+}
+
+@media screen and (max-width: 1366px) {
+	.footer {
+		margin-top: 463px;
+		transition: margin 1s, width 1s, opacity 1s;
+	}
+	.logoContent {
+		transition: margin 1s, width 1s, opacity 1s;
+		width: 600px;
+		height: 400px;
+		margin-top: 20px;
+	}
+}

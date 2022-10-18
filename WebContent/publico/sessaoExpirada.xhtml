@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags">
+<f:view encoding="ISO-8859-1" contentType="text/html">
+	<h:head>
+		<title>Sessão Expirada</title>
+		<h:outputStylesheet library="css" name="sucessoEstilos.css"></h:outputStylesheet>
+
+	</h:head>
+
+	<h:body>
+		<h:form>
+
+			<center>
+				<h:panelGroup layout="block" styleClass="container">
+
+					<h:panelGroup layout="block" styleClass="header">
+						<h:panelGroup layout="block">
+							<p:graphicImage styleClass="logoHeader" library="images"
+								name="controlSecLogoBlackHorizontal.png" />
+						</h:panelGroup>
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="content">
+						<p:panel id="panel" header="Atenção!">
+							<p:outputLabel style="color: red">Desculpe, mas sua sessão expirou!<br />
+								Clique no botão abaixo para efetuar login novamente.
+							</p:outputLabel>
+							<br />
+							<br />
+							<p:graphicImage library="images" name="carinhaTriste.png"
+								style="width: 120px; height: 70px"></p:graphicImage>
+							<br />
+							<br />
+							<p:outputLabel>
+								<b>Motivo: #{SPRING_SECURITY_LAST_EXCEPTION.message}</b>
+							</p:outputLabel>
+							<f:facet name="footer">
+								<center>
+									<p:commandButton action="/publico/login"
+										value="Fazer login novamente" />
+								</center>
+							</f:facet>
+						</p:panel>
+					</h:panelGroup>
+				</h:panelGroup>
+			</center>
+		</h:form>
+	</h:body>
+
+</f:view>
+
+</html>

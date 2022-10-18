@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags">
+<f:view encoding="ISO-8859-1" contentType="text/html">
+	<h:head>
+		<title>Cadastro de Visitas</title>
+		<h:outputStylesheet library="css" name="visitaEstilos.css"></h:outputStylesheet>
+		<h:outputStylesheet library="css" name="tooltipEstilos.css"></h:outputStylesheet>
+	</h:head>
+
+	<h:body>
+
+		<h:form id="form">
+
+			<h:inputHidden value="#{visitaBean.visitaDTO.codRegistro}" />
+			<h:inputHidden value="#{visitaBean.destinoSalvar}" />
+
+			<h:panelGroup layout="block" styleClass="container">
+
+				<h:panelGroup layout="block" styleClass="header">
+					<h:panelGroup layout="block">
+						<p:graphicImage styleClass="logoHeader" library="images"
+							name="controlSecLogoBlackHorizontal.png" />
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<p:menubar>
+					<p:menuitem id="home" icon="ui-icon-home"
+						action="/restrito/principal" immediate="true" />
+					<p:menuitem icon="ui-icon-grip-dotted-vertical" disabled="true" />
+
+					<p:submenu label="Cadastros" icon="ui-icon-pencil">
+						<sec:ifAnyGranted roles="ROLE_ADMIN">
+							<p:menuitem id="menuDepart" value="Departamentos"
+								action="#{departamentoBean.novo()}" immediate="true" />
+							<p:menuitem id="menuUsuario" value="Usuários"
+								action="#{usuarioBean.novo()}" immediate="true" />
+						</sec:ifAnyGranted>
+
+						<sec:ifAnyGranted roles="ROLE_USER, ROLE_ADMIN">
+							<p:menuitem id="menuVisitante" value="Visitantes"
+								action="#{visitanteBean.novo()}" immediate="true" />
+							<p:menuitem id="menuVisita" value="Visitas"
+								action="#{visitaBean.novo()}" immediate="true" />
+						</sec:ifAnyGranted>
+					</p:submenu>
+
+					<p:submenu label="Listagens" icon="ui-icon-wrench">
+						<sec:ifAnyGranted roles="ROLE_USER, ROLE_ADMIN">
+							<p:menuitem id="listDepart" value="Departamentos"
+								action="/restrito/principalDepartamento" immediate="true" />
+							<sec:ifAnyGranted roles="ROLE_ADMIN">
+								<p:menuitem id="listUsuario" value="Usuários"
+									action="/admin/principalUsuario" immediate="true" />
+							</sec:ifAnyGranted>
+							<p:menuitem id="listVisitante" value="Visitantes"
+								action="/restrito/principalVisitante" immediate="true" />
+							<p:menuitem id="listVisita" value="Visitas"
+								action="/restrito/principalVisita" immediate="true" />
+						</sec:ifAnyGranted>
+					</p:submenu>
+
+					<p:submenu label="Ajuda" icon="ui-icon-help">
+						<p:menuitem id="help" value="Manual do Usuário"
+							url="../resources/pdf/manual.pdf" target="_blank"
+							immediate="true" />
+						<p:separator />
+						<p:menuitem value="Sobre" oncomplete="PF('about').show()" />
+					</p:submenu>
+
+					<f:facet name="options">
+						<p:commandButton id="sair" type="button" value="Logout"
+							icon="ui-icon-extlink" style="width: 100px; height: 30px"
+							onclick="document.location='#{request.contextPath}/j_spring_security_logout'" />
+					</f:facet>
+				</p:menubar>
+				<p:tooltip id="toolTipSair" for="sair" value="Sair" />
+				<p:tooltip id="toolTipHome" for="home" value="Principal" />
+
+				<p:toolbar>
+
+					<f:facet name="left">
+
+						<sec:ifAnyGranted roles="ROLE_ADMIN">
+							<p:commandButton id="toolBarUser" icon="myIcon"
+								styleClass="myButton" value="Usuários" immediate="true"
+								action="#{usuarioBean.novo()}" />
+							<p:tooltip id="toolTipUser" for="toolBarUser"
+								value="Cadastrar usuários" showEffect="fade" hideEffect="slide" />
+						</sec:ifAnyGranted>
+
+						<p:commandButton id="toolBarVisitante" icon="iconVisitante"
+							styleClass="myButton" value="Visitantes" immediate="true"
+							action="#{visitanteBean.novo()}" />
+						<p:tooltip id="toolTipVisitante" for="toolBarVisitante"
+							value="Cadastrar visitantes" showEffect="fade" hideEffect="slide" />
+
+						<p:commandButton id="toolBarVisita" icon="iconVisita"
+							styleClass="myButton" value="Visitas" immediate="true"
+							action="#{visitaBean.novo()}" />
+						<p:tooltip id="toolTipVisita" for="toolBarVisita"
+							value="Cadastrar Visitas" showEffect="fade" hideEffect="slide" />
+
+						<sec:ifAnyGranted roles="ROLE_ADMIN">
+							<p:commandButton id="toolBarDepart" icon="iconDepart"
+								styleClass="myButton" value="Departamentos" immediate="true"
+								action="#{departamentoBean.novo()}" />
+							<p:tooltip id="toolTipDepart" for="toolBarDepart"
+								value="Cadastrar Departamentos" showEffect="fade"
+								hideEffect="slide" />
+						</sec:ifAnyGranted>
+
+						<f:facet name="right">
+							<center>
+								<p:clock autoSync="true" mode="server"
+									pattern="dd/MM/yyyy HH:mm:ss" />
+							</center>
+						</f:facet>
+					</f:facet>
+
+				</p:toolbar>
+				<p:separator style="height: 20px" />
+
+				<h:panelGroup layout="block" styleClass="content">
+					<!-- 					<p:growl id="msgs" showDetail="true" life="3000" /> -->
+
+					<p:panel id="panelVisita" header="Cadastro de Visitas">
+						<p:messages id="msgs" globalOnly="true" showDetail="true"
+							closable="true" styleClass="messages" />
+
+						<center>
+							<h:panelGrid id="panelGrid" columns="4" cellspacing="10">
+
+								<p:outputLabel for="visitante" value="Selecionar Visitante: " />
+								<p:selectOneMenu id="visitante" effect="fold"
+									style="width: 157px" filter="true" filterMatchMode="startsWith"
+									value="#{visitaBean.id}" required="true"
+									requiredMessage="#{visitaBean.errorVisitante()}"
+									valueChangeListener="#{oneMenuBean.onSelectOneMenuChangeIdVisitante}">
+									<f:selectItem itemLabel="Selecione um" noSelectionOption="true"
+										itemDisabled="true" />
+									<f:selectItems value="#{visitanteBean.lista}" var="visitante"
+										itemLabel="#{visitante.cpf}" itemValue="#{visitante.id}" />
+									<p:ajax update="idVisitante msgs visitante" />
+								</p:selectOneMenu>
+
+								<p:outputLabel value="ID Visitante: " />
+								<p:inputText id="idVisitante" disabled="true" size="30"
+									value="#{oneMenuBean.idVisitante}" />
+
+								<p:outputLabel for="departamento"
+									value="Selecionar Departamento: " />
+								<p:selectOneMenu id="departamento" effect="fold"
+									style="width: 157px" filter="true" filterMatchMode="startsWith"
+									value="#{visitaBean.idDp}" required="true"
+									requiredMessage="#{visitaBean.errorDepartamento()}"
+									valueChangeListener="#{oneMenuBean.onSelectOneMenuChangeIdDepartamento}">
+									<f:selectItem itemLabel="Selecione um" noSelectionOption="true"
+										itemDisabled="true" />
+									<f:selectItems value="#{departamentoBean.lista}"
+										var="departamento" itemLabel="#{departamento.nome}"
+										itemValue="#{departamento.id}" />
+									<p:ajax update="idDepartamento msgs departamento" />
+								</p:selectOneMenu>
+
+								<p:outputLabel value="ID Departamento: " />
+								<p:inputText id="idDepartamento" disabled="true" size="30"
+									value="#{oneMenuBean.idDepartamento}" />
+
+							</h:panelGrid>
+
+							<h:panelGrid columns="2" cellspacing="10">
+
+								<p:outputLabel for="data" value="Data e Hora: " />
+								<p:calendar id="data" value="#{visitaBean.data}" locale="pt_BR"
+									pattern="EEE, dd/MM/yyyy, HH:mm" required="true"
+									showButtonPanel="true"
+									requiredMessage="#{visitaBean.errorData()}">
+									<p:ajax event="dateSelect"
+										listener="#{visitaBean.onDateSelect}" update="msgs" />
+								</p:calendar>
+							</h:panelGrid>
+						</center>
+
+						<p:toolbar>
+							<f:facet name="right">
+								<p:commandButton id="redefinir" value="Limpar Formulário"
+									update="panelVisita idVisitante idDepartamento" process="@this"
+									icon="ui-icon-refresh" styleClass="redIcon"
+									style="width: 150px; height: 30px"
+									actionListener="#{visitaBean.resetTextFields()}" />
+								<p:commandButton id="salvar" value="Salvar" icon="ui-icon-disk"
+									action="#{visitaBean.salvar()}" ajax="false"
+									style="width: 150px; height: 30px" />
+							</f:facet>
+						</p:toolbar>
+					</p:panel>
+
+					<p:tooltip id="toolTipData" for="data" styleClass="tooltipUser"
+						value="Clique para selecionar" />
+
+					<p:dialog header="Sobre" widgetVar="about" resizable="false"
+						modal="true" showEffect="fade" hideEffect="fade"
+						styleClass="dialogAbout">
+
+						<h:panelGrid columns="2" columnClasses="label,value"
+							cellspacing="5">
+							<h:outputText value="Versão:" />
+							<h:outputText styleClass="about" value="Control Sec Beta" />
+
+							<h:outputText value="Linguagem:" />
+							<h:outputText styleClass="about" value="Java EE" />
+
+							<h:outputText value="Desenvolvimento:" />
+							<h:outputText styleClass="about" value="Eclipse Kepler SR2" />
+
+							<h:outputText value="Segurança:" />
+							<h:outputText styleClass="about" value="Spring Security 3.0.5" />
+
+							<h:outputText value="Objetivo:" />
+							<h:outputText styleClass="about"
+								value="Trabalho de Conclusão de Curso" />
+
+							<h:outputText value="Grupo:" />
+							<h:outputText styleClass="about"
+								value="Fábio, John, Márcio, Richadson" />
+
+							<h:outputText value="Ícones Toolbar:" />
+							<h:outputLink value="http://pc.de/icons" target="_blank"
+								styleClass="link">
+								<h:outputText value="PC.DE - Creative Commons" />
+							</h:outputLink>
+
+							<h:outputText value="Fontes Logotipos:" />
+							<h:panelGroup layout="block">
+								<h:outputLink value="http://www.pizzadude.dk" target="_blank"
+									styleClass="link">
+									<h:outputText value="High Security;" />
+								</h:outputLink>
+								<h:outputLink value="http://goo.gl/8tkFeS" target="_blank"
+									styleClass="link">
+									<h:outputText value=" Maximum Security" />
+								</h:outputLink>
+							</h:panelGroup>
+						</h:panelGrid>
+					</p:dialog>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" styleClass="footer">
+					<br />
+					<h:panelGroup layout="block" styleClass="usuarioLogado">Seja bem-vindo,<span
+							style="color: yellow"> #{contextoBean.usuarioLogado.nome}</span> | 
+				<p:commandLink id="sairFooter" value="Logout"
+							styleClass="logoutFooter"
+							onclick="document.location='#{request.contextPath}/j_spring_security_logout'" />
+						<br />
+						<p:graphicImage library="images" name="separador.png"
+							styleClass="separadorFooter" />
+						<br />
+						<br />
+						<p:graphicImage library="images"
+							name="controlSecLogoHorizontal.png" styleClass="logoFooter" />
+					</h:panelGroup>
+				</h:panelGroup>
+				<p:tooltip id="toolTipLogout" for="sairFooter" value="Sair"
+					styleClass="tooltipLogout" />
+			</h:panelGroup>
+
+			<!-- menu cadastro -->
+			<sec:ifAnyGranted roles="ROLE_ADMIN">
+				<p:blockUI block="form" trigger="menuDepart, menuUsuario">Carregando...<br />
+					<p:graphicImage library="images" name="ajaxloadingbar.gif" />
+				</p:blockUI>
+			</sec:ifAnyGranted>
+
+			<sec:ifAnyGranted roles="ROLE_USER, ROLE_ADMIN">
+				<p:blockUI block="form" trigger="menuVisitante, menuVisita">Carregando...<br />
+					<p:graphicImage library="images" name="ajaxloadingbar.gif" />
+				</p:blockUI>
+			</sec:ifAnyGranted>
+
+			<!-- menu listagem -->
+			<sec:ifAnyGranted roles="ROLE_USER, ROLE_ADMIN">
+				<p:blockUI block="form" trigger="listDepart">Carregando...<br />
+					<p:graphicImage library="images" name="ajaxloadingbar.gif" />
+				</p:blockUI>
+			</sec:ifAnyGranted>
+
+			<sec:ifAnyGranted roles="ROLE_ADMIN">
+				<p:blockUI block="form" trigger="listUsuario">Carregando...<br />
+					<p:graphicImage library="images" name="ajaxloadingbar.gif" />
+				</p:blockUI>
+			</sec:ifAnyGranted>
+
+			<sec:ifAnyGranted roles="ROLE_USER, ROLE_ADMIN">
+				<p:blockUI block="form" trigger="listVisitante, listVisita">Carregando...<br />
+					<p:graphicImage library="images" name="ajaxloadingbar.gif" />
+				</p:blockUI>
+			</sec:ifAnyGranted>
+
+			<!-- toolbar -->
+			<sec:ifAnyGranted roles="ROLE_ADMIN">
+				<p:blockUI block="form" trigger="toolBarUser">Carregando...<br />
+					<p:graphicImage library="images" name="ajaxloadingbar.gif" />
+				</p:blockUI>
+			</sec:ifAnyGranted>
+
+			<sec:ifAnyGranted roles="ROLE_USER, ROLE_ADMIN">
+				<p:blockUI block="form" trigger="toolBarVisitante, toolBarVisita">Carregando...<br />
+					<p:graphicImage library="images" name="ajaxloadingbar.gif" />
+				</p:blockUI>
+			</sec:ifAnyGranted>
+
+			<sec:ifAnyGranted roles="ROLE_ADMIN">
+				<p:blockUI block="form" trigger="toolBarDepart">Carregando...<br />
+					<p:graphicImage library="images" name="ajaxloadingbar.gif" />
+				</p:blockUI>
+			</sec:ifAnyGranted>
+
+			<!-- menu ajuda -->
+			<p:blockUI block="form" trigger="help, sair">Carregando...<br />
+				<p:graphicImage library="images" name="ajaxloadingbar.gif" />
+			</p:blockUI>
+		</h:form>
+
+		<script type="text/javascript">
+
+			PrimeFaces.locales['pt_BR'] = {
+					closeText : 'Fechar',
+					prevText : 'Anterior',
+					nextText : 'Próximo',
+					currentText : 'Começo',
+					monthNames : [ 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+							'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro' ],
+					monthNamesShort : [ 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago',
+							'Set', 'Out', 'Nov', 'Dez' ],
+					dayNames : [ 'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta',
+							'Sábado' ],
+					dayNamesShort : [ 'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb' ],
+					dayNamesMin : [ 'D', 'S', 'T', 'Q', 'Q', 'S', 'S' ],
+					weekHeader : 'Semana',
+					firstDay : 0,
+					isRTL : false,
+					showMonthAfterYear : false,
+					yearSuffix : '',
+					timeOnlyTitle : 'Escolha as Horas',
+					timeText : 'Tempo',
+					hourText : 'Horas',
+					minuteText : 'Minutos',
+					secondText : 'Segundo',
+					currentText : 'Data Atual',
+					ampm : false,
+					month : 'Mês',
+					week : 'Semana',
+					day : 'Dia',
+					allDayText : 'Todo Dia'
+				};
+		</script>
+	</h:body>
+</f:view>
+
+</html>

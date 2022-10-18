@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags">
+<f:view encoding="ISO-8859-1" contentType="text/html">
+	<h:head>
+		<title>Listagem de Usuários</title>
+		<h:outputStylesheet library="css" name="principalEstilos.css"></h:outputStylesheet>
+		<h:outputStylesheet library="css" name="tooltipEstilos.css"></h:outputStylesheet>
+	</h:head>
+
+	<h:body>
+		<h:form id="form">
+			<p:growl id="message" showDetail="true" life="3000" />
+
+			<h:panelGroup layout="block" styleClass="container">
+
+				<h:panelGroup layout="block" styleClass="header">
+					<h:panelGroup layout="block">
+						<p:graphicImage styleClass="logoHeader" library="images"
+							name="controlSecLogoBlackHorizontal.png" />
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<p:menubar>
+					<p:menuitem id="home" icon="ui-icon-home"
+						action="/restrito/principal" immediate="true" />
+					<p:menuitem icon="ui-icon-grip-dotted-vertical" disabled="true" />
+
+					<p:submenu label="Cadastros" icon="ui-icon-pencil">
+						<sec:ifAnyGranted roles="ROLE_ADMIN">
+							<p:menuitem value="Departamentos"
+								action="#{departamentoBean.novo()}" immediate="true" />
+							<p:menuitem value="Usuários" action="#{usuarioBean.novo()}"
+								immediate="true" />
+						</sec:ifAnyGranted>
+
+						<sec:ifAnyGranted roles="ROLE_USER, ROLE_ADMIN">
+							<p:menuitem value="Visitantes" action="#{visitanteBean.novo()}"
+								immediate="true" />
+							<p:menuitem value="Visitas" action="#{visitaBean.novo()}"
+								immediate="true" />
+						</sec:ifAnyGranted>
+					</p:submenu>
+
+					<p:submenu label="Listagens" icon="ui-icon-wrench">
+						<sec:ifAnyGranted roles="ROLE_USER, ROLE_ADMIN">
+							<p:menuitem value="Departamentos"
+								action="/restrito/principalDepartamento" immediate="true" />
+							<sec:ifAnyGranted roles="ROLE_ADMIN">
+								<p:menuitem value="Usuários" action="/admin/principalUsuario"
+									immediate="true" />
+							</sec:ifAnyGranted>
+							<p:menuitem value="Visitantes"
+								action="/restrito/principalVisitante" immediate="true" />
+							<p:menuitem value="Visitas" action="/restrito/principalVisita"
+								immediate="true" />
+						</sec:ifAnyGranted>
+					</p:submenu>
+
+					<sec:ifAnyGranted roles="ROLE_ADMIN">
+						<p:submenu label="Relatórios" icon="ui-icon-document">
+							<p:menuitem value="Exportar Relatórios"
+								oncomplete="PF('dlgExport').show()" immediate="true" />
+						</p:submenu>
+					</sec:ifAnyGranted>
+
+					<p:submenu label="Ajuda" icon="ui-icon-help">
+						<p:menuitem value="Manual do Usuário"
+							url="../resources/pdf/manual.pdf" target="_blank"
+							immediate="true" />
+						<p:separator />
+						<p:menuitem value="Sobre" oncomplete="PF('about').show()" />
+					</p:submenu>
+
+					<f:facet name="options">
+						<p:commandButton id="sair" type="button" value="Logout"
+							icon="ui-icon-extlink" style="width: 100px; height: 30px"
+							onclick="document.location='#{request.contextPath}/j_spring_security_logout'" />
+					</f:facet>
+				</p:menubar>
+				<p:tooltip id="toolTipSair" for="sair" value="Sair" />
+				<p:tooltip id="toolTipHome" for="home" value="Principal" />
+
+				<p:toolbar>
+
+					<f:facet name="left">
+
+						<sec:ifAnyGranted roles="ROLE_ADMIN">
+							<p:commandButton id="toolBarUser" icon="myIcon"
+								styleClass="myButton" value="Usuários" immediate="true"
+								action="#{usuarioBean.novo()}" />
+							<p:tooltip id="toolTipUser" for="toolBarUser"
+								value="Cadastrar usuários" showEffect="fade" hideEffect="slide" />
+						</sec:ifAnyGranted>
+
+						<p:commandButton id="toolBarVisitante" icon="iconVisitante"
+							styleClass="myButton" value="Visitantes" immediate="true"
+							action="#{visitanteBean.novo()}" />
+						<p:tooltip id="toolTipVisitante" for="toolBarVisitante"
+							value="Cadastrar visitantes" showEffect="fade" hideEffect="slide" />
+
+						<p:commandButton id="toolBarVisita" icon="iconVisita"
+							styleClass="myButton" value="Visitas" immediate="true"
+							action="#{visitaBean.novo()}" />
+						<p:tooltip id="toolTipVisita" for="toolBarVisita"
+							value="Cadastrar Visitas" showEffect="fade" hideEffect="slide" />
+
+						<sec:ifAnyGranted roles="ROLE_ADMIN">
+							<p:commandButton id="toolBarDepart" icon="iconDepart"
+								styleClass="myButton" value="Departamentos" immediate="true"
+								action="#{departamentoBean.novo()}" />
+							<p:tooltip id="toolTipDepart" for="toolBarDepart"
+								value="Cadastrar Departamentos" showEffect="fade"
+								hideEffect="slide" />
+						</sec:ifAnyGranted>
+
+						<sec:ifAnyGranted roles="ROLE_ADMIN">
+							<p:commandButton id="toolBarReport" icon="iconReport"
+								styleClass="myButton" value="Relatórios" immediate="true"
+								oncomplete="PF('dlgExport').show()" />
+							<p:tooltip id="toolTipReport" for="toolBarReport"
+								value="Exportar relatórios em PDF-XML" showEffect="fade"
+								hideEffect="slide" />
+						</sec:ifAnyGranted>
+					</f:facet>
+
+				</p:toolbar>
+				<p:separator style="height: 20px" />
+
+				<h:panelGroup layout="block" styleClass="content">
+
+					<p:dataTable id="tabela1" value="#{usuarioBean.lista}"
+						var="usuario" paginator="true" rows="10"
+						emptyMessage="Não há registros encontrados.">
+						<f:facet name="header">Listagem de Usuários</f:facet>
+						<f:facet name="footer">Total de usuários cadastrados: #{usuarioBean.lista.size()}</f:facet>
+
+						<p:column headerText="Status" exportable="false">
+							<p:growl id="message2" showDetail="true" life="3000" />
+							<p:commandLink id="status" action="#{usuarioBean.ativar()}"
+								update="message2, tabela1">
+								<p:graphicImage library="images"
+									name="usuario_ativo_#{usuario.ativo}.png" />
+								<f:setPropertyActionListener value="#{usuario}"
+									target="#{usuarioBean.usuarioDTO}" />
+							</p:commandLink>
+							<p:tooltip id="toolTipStatus" for="status"
+								value="Ativa ou desativa usuários, 1: Ativado, 0: Desativado" />
+						</p:column>
+
+						<p:column headerText="Permissões" exportable="false">
+							<p:commandLink id="permissao"
+								action="#{usuarioBean.atribuirPermissao(usuario, 'ROLE_ADMIN')}"
+								update="tabela1">
+								<p:graphicImage library="images"
+									name="ROLE_ADMIN_#{usuario.permissao.contains('ROLE_ADMIN')}.png" />
+							</p:commandLink>
+							<p:tooltip id="toolTipPermissao" for="permissao"
+								value="Adiciona ou remove permissão de administrador, Escudo cinza: Usuário, Escudo dourado: Administrador" />
+						</p:column>
+
+						<p:column headerText="ID">
+							<h:outputText value="#{usuario.matricula}" />
+						</p:column>
+
+						<p:column headerText="Nome">
+							<h:outputText value="#{usuario.nome}" />
+						</p:column>
+
+						<p:column headerText="Login">
+							<h:outputText value="#{usuario.login}" />
+						</p:column>
+
+						<p:column headerText="Função">
+							<h:outputText value="#{usuario.funcao}" />
+						</p:column>
+
+						<p:column headerText="Opções" exportable="false">
+
+							<p:growl id="message3" showDetail="true" life="3000" />
+
+							<h:commandLink action="#{usuarioBean.editar()}">
+								<p:commandButton id="editar" icon="ui-icon-pencil"
+									styleClass="blackIcon" />
+								<f:setPropertyActionListener value="#{usuario}"
+									target="#{usuarioBean.usuarioDTO}" />
+								<f:setPropertyActionListener value="/admin/principalUsuario"
+									target="#{usuarioBean.destinoSalvar}" />
+							</h:commandLink>
+							<p:tooltip id="toolTipEditar" for="editar" value="Editar" />
+
+							<p:commandButton id="visualizar" update=":form:userDetail"
+								oncomplete="PF('userDialog').show()" icon="ui-icon-search"
+								styleClass="blackIcon">
+								<f:setPropertyActionListener value="#{usuario}"
+									target="#{usuarioBean.usuarioDTO}" />
+							</p:commandButton>
+							<p:tooltip id="toolTipVisualizar" for="visualizar"
+								value="Visualizar" />
+
+							<p:commandButton id="excluir" icon="ui-icon-trash"
+								styleClass="redIcon" action="#{usuarioBean.excluir()}"
+								update="message3, tabela1">
+								<p:confirm header="Confirmação" icon="ui-icon-alert"
+									message="Confirmar a exclusão deste usuário?" />
+								<f:setPropertyActionListener value="#{usuario}"
+									target="#{usuarioBean.usuarioDTO}" />
+							</p:commandButton>
+
+							<p:confirmDialog global="true" showEffect="fade"
+								hideEffect="explode" closeOnEscape="true"
+								style="box-shadow: none;">
+								<center>
+									<p:commandButton value="Sim" type="button"
+										styleClass="ui-confirmdialog-yes" icon="ui-icon-check">
+									</p:commandButton>
+									<p:commandButton value="Não" type="button"
+										styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+								</center>
+							</p:confirmDialog>
+							<p:tooltip id="toolTipExcluir" for="excluir" value="Excluir" />
+						</p:column>
+					</p:dataTable>
+					<p:blockUI block="tabela1" trigger="tabela1">Carregando...<br />
+						<p:graphicImage library="images" name="ajaxloadingbar.gif" />
+					</p:blockUI>
+
+					<p:dialog header="Dados Cadastrados" widgetVar="userDialog"
+						closeOnEscape="true" modal="true" showEffect="fade"
+						hideEffect="fade" resizable="false" styleClass="dialogVisualizar">
+						<p:outputPanel id="userDetail" style="text-align:center;">
+							<center>
+								<p:panelGrid columns="2"
+									rendered="#{not empty usuarioBean.usuarioDTO}"
+									columnClasses="label,value">
+
+									<h:outputText value="ID:" />
+									<h:outputText value="#{usuarioBean.usuarioDTO.matricula}" />
+
+									<h:outputText value="Nome:" />
+									<h:outputText value="#{usuarioBean.usuarioDTO.nome}" />
+
+									<h:outputText value="Login:" />
+									<h:outputText value="#{usuarioBean.usuarioDTO.login}" />
+
+									<h:outputText value="Função:" />
+									<h:outputText value="#{usuarioBean.usuarioDTO.funcao}" />
+								</p:panelGrid>
+							</center>
+						</p:outputPanel>
+					</p:dialog>
+
+					<p:dialog header="Relatórios" widgetVar="dlgExport"
+						closeOnEscape="true" resizable="false" modal="true"
+						showEffect="fade" hideEffect="fade" styleClass="dialogRelatorio">
+						<center>
+							<h:panelGrid columns="2">
+								<p:panel header="Exportar registro completo">
+									<center>
+										<h:commandLink id="pdf">
+											<p:graphicImage library="images" name="pdf.png" />
+											<p:dataExporter type="pdf" encoding="ISO-8859-1"
+												target="tabela1" fileName="usuarios"
+												preProcessor="#{preProcessorBean.preProcessPDF}" />
+											<p:tooltip id="toolTipPdf" for="pdf" value="Exportar em PDF"
+												showEffect="clip" hideEffect="slide" />
+										</h:commandLink>
+
+										<h:commandLink id="excel">
+											<p:graphicImage library="images" name="excel97-2003.png" />
+											<p:dataExporter type="xls" encoding="ISO-8859-1"
+												target="tabela1" fileName="usuarios" />
+											<p:tooltip id="toolTipXls" for="excel"
+												value="Exportar em XLS (Excel 97-2003)" showEffect="clip"
+												hideEffect="scale" />
+										</h:commandLink>
+									</center>
+								</p:panel>
+								<p:panel header="Exportar registro por página">
+									<center>
+										<h:commandLink id="pdf2">
+											<p:graphicImage library="images" name="pdf.png" />
+											<p:dataExporter type="pdf" encoding="ISO-8859-1"
+												target="tabela1" fileName="usuarios" pageOnly="true" />
+											<p:tooltip id="toolTipPdf2" for="pdf2"
+												value="Exportar em PDF" showEffect="clip" hideEffect="slide" />
+										</h:commandLink>
+
+										<h:commandLink id="excel2">
+											<p:graphicImage library="images" name="excel97-2003.png" />
+											<p:dataExporter type="xls" encoding="ISO-8859-1"
+												target="tabela1" fileName="usuarios" pageOnly="true"
+												preProcessor="#{preProcessorBean.preProcessPDF}" />
+											<p:tooltip id="toolTipXls2" for="excel2"
+												value="Exportar em XLS (Excel 97-2003)" showEffect="clip"
+												hideEffect="scale" />
+										</h:commandLink>
+									</center>
+								</p:panel>
+							</h:panelGrid>
+						</center>
+					</p:dialog>
+
+					<p:dialog header="Sobre" widgetVar="about" resizable="false"
+						modal="true" showEffect="fade" hideEffect="fade"
+						closeOnEscape="true" styleClass="dialogAbout">
+
+						<h:panelGrid columns="2" columnClasses="label,value"
+							cellspacing="5">
+							<h:outputText value="Versão:" />
+							<h:outputText styleClass="about" value="Control Sec Beta" />
+
+							<h:outputText value="Linguagem:" />
+							<h:outputText styleClass="about" value="Java EE" />
+
+							<h:outputText value="Desenvolvimento:" />
+							<h:outputText styleClass="about" value="Eclipse Kepler SR2" />
+
+							<h:outputText value="Segurança:" />
+							<h:outputText styleClass="about" value="Spring Security 3.0.5" />
+
+							<h:outputText value="Objetivo:" />
+							<h:outputText styleClass="about"
+								value="Trabalho de Conclusão de Curso" />
+
+							<h:outputText value="Grupo:" />
+							<h:outputText styleClass="about"
+								value="Fábio, John, Márcio, Richadson" />
+
+							<h:outputText value="Ícones Toolbar:" />
+							<h:outputLink value="http://pc.de/icons" target="_blank"
+								styleClass="link">
+								<h:outputText value="PC.DE - Creative Commons" />
+							</h:outputLink>
+
+							<h:outputText value="Fontes Logotipos:" />
+							<h:panelGroup layout="block">
+								<h:outputLink value="http://www.pizzadude.dk" target="_blank"
+									styleClass="link">
+									<h:outputText value="High Security;" />
+								</h:outputLink>
+								<h:outputLink value="http://goo.gl/8tkFeS" target="_blank"
+									styleClass="link">
+									<h:outputText value=" Maximum Security" />
+								</h:outputLink>
+							</h:panelGroup>
+						</h:panelGrid>
+					</p:dialog>
+				</h:panelGroup>
+			</h:panelGroup>
+		</h:form>
+	</h:body>
+</f:view>
+</html>

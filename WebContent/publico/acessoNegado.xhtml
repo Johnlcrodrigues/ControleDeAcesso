@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:security="http://www.springframework.org/security/tags">
+<f:view encoding="ISO-8859-1" contentType="text/html">
+	<h:head>
+		<title>Acesso Negado</title>
+		<h:outputStylesheet library="css" name="sucessoEstilos.css"></h:outputStylesheet>
+	</h:head>
+
+	<h:body>
+		<h:form>
+
+			<center>
+				<h:panelGroup layout="block" styleClass="container">
+
+					<h:panelGroup layout="block" styleClass="header">
+						<h:panelGroup layout="block">
+							<p:graphicImage styleClass="logoHeader" library="images"
+								name="controlSecLogoBlackHorizontal.png" />
+						</h:panelGroup>
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="content">
+						<p:panel id="panel" header="Atenção!">
+							<p:outputLabel style="color: red">Acesso negado! </p:outputLabel>
+							<br />
+							<p:graphicImage library="images" name="cadeado.png"
+								style="width: 100px; height: 100px"></p:graphicImage>
+							<br />
+							<p:outputLabel>Você não tem permissões para acessar esta página. <br />
+								Por favor, entre em contato com o administrador.</p:outputLabel>
+
+							<f:facet name="footer">
+								<center>
+									<p:commandButton action="/publico/login"
+										value="Fazer login novamente" />
+								</center>
+							</f:facet>
+						</p:panel>
+					</h:panelGroup>
+				</h:panelGroup>
+			</center>
+		</h:form>
+	</h:body>
+</f:view>
+</html>

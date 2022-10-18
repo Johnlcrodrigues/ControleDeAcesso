@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:b="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+	<http use-expressions="true" access-denied-page="/publico/acessoNegado.jsf">
+		<intercept-url pattern="/admin/**"
+			access="isAuthenticated() and hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/restrito/**"
+			access="isAuthenticated() and hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
+		<!-- <form-login login-page="/login.jsf" authentication-failure-url="/login.jsf?erro=true"/> -->
+		<form-login login-page="/publico/login.jsf"
+			always-use-default-target="true" default-target-url="/restrito/principal.jsf"
+			authentication-failure-url="/publico/invalido.jsf" />
+
+		<session-management>
+			<concurrency-control max-sessions="2"
+				expired-url="/publico/sessaoExpirada.jsf" />
+		</session-management>
+
+		<logout />
+
+
+	</http>
+
+
+	<authentication-manager>
+		<authentication-provider>
+			<jdbc-user-service data-source-ref="ControleDataSource"
+				authorities-by-username-query="SELECT u.login_usuario, p.permissao 
+											 FROM tb_usuario u, usuario_permissao p 
+											WHERE u.matricula_usuario = p.usuario 
+											  AND u.login_usuario = ? "
+				users-by-username-query="SELECT login_usuario, senha_usuario, ativo_usuario 
+									   FROM tb_usuario 
+									  WHERE login_usuario = ?" />
+		</authentication-provider>
+	</authentication-manager>
+</b:beans>

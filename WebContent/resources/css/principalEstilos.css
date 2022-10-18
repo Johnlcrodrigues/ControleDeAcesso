@@ -1,0 +1,165 @@
+/* auto-comment: ctrl + shift + /  */
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+.ui-widget,.ui-widget .ui-widget {
+	font-size: 90% !important;
+}
+
+html,body,.container {
+	height: 100%;
+	background: #BFBFBF;
+}
+
+body>.container {
+	height: auto;
+	min-height: 100%;
+	min-width: 100%;
+}
+
+.redIcon .ui-icon {
+	background-image: url("../resources/images/ui-icons_cd0a0a_256x240.png")
+		!important;
+	);
+}
+
+.blackIcon .ui-icon {
+	background-image: url("../resources/images/ui-icons_222222_256x240.png")
+		!important;
+	);
+}
+
+.about {
+	font-weight: bold;
+}
+
+.usuarioLogado {
+	color: #FFF;
+	font-family: calibri, arial !important;
+}
+
+.logoHeader {
+	width: 500px;
+	height: 100px;
+	margin-top: 22px;
+	margin-right: 20px;
+	opacity: 0.7;
+}
+
+.header {
+	width: 100%;
+	height: 150px;
+	background: #DFDFDF;
+	text-align: center;
+}
+
+.content {
+	background: #BFBFBF;
+	min-height: auto;
+	min-width: auto;
+	position: absolute;
+	text-align: center;
+}
+
+.dialogVisualizar {
+	width: 400px !important;
+	height: 192px !important;
+	position: absolute !important;
+	text-align: left !important;
+}
+
+.dialogVisualizarVisitante {
+	width: 450px !important;
+	height: 460px !important;
+	position: absolute !important;
+	text-align: left !important;
+}
+
+.dialogRelatorio {
+	width: 500px !important;
+	height: 135px !important;
+	position: absolute !important;
+}
+
+.dialogAbout {
+	width: 390px !important;
+	height: 225px !important;
+	position: absolute !important;
+	text-align: left !important;
+}
+
+.about {
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.link {
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.link:HOVER {
+	color: red;
+}
+
+.myButton {
+	width: 110px;
+	height: 50px;
+	text-indent: -20% !important;
+	padding-top: 26px !important;
+	top: 1px !important;
+	border: none !important;
+}
+
+.myButton .myIcon {
+	background-image: url("../resources/images/user27x27.png") !important;
+	width: 27px !important;
+	height: 27px !important;
+	left: 33% !important;
+	top: 22% !important;
+	margin-left: 0px;
+}
+
+.myButton .iconVisitante {
+	background-image: url("../resources/images/visitantes27x27.png")
+		!important;
+	width: 27px !important;
+	height: 27px !important;
+	left: 33% !important;
+	top: 22% !important;
+	margin-left: 0px;
+}
+
+.myButton .iconVisita {
+	background-image: url("../resources/images/visita27x27.png") !important;
+	width: 27px !important;
+	height: 27px !important;
+	left: 33% !important;
+	top: 22% !important;
+	margin-left: 0px;
+}
+
+.myButton .iconDepart {
+	background-image: url("../resources/images/departamento27x27.png")
+		!important;
+	width: 27px !important;
+	height: 27px !important;
+	left: 36% !important;
+	top: 22% !important;
+	margin-left: 0px;
+}
+
+.myButton .iconReport {
+	background-image: url("../resources/images/relatorio27x27.png")
+		!important;
+	width: 27px !important;
+	height: 27px !important;
+	left: 36% !important;
+	top: 22% !important;
+	margin-left: 0px;
+}
+
+
+

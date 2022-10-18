@@ -1,0 +1,187 @@
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+.ui-widget,.ui-widget .ui-widget {
+	font-size: 90% !important;
+}
+
+.redIcon .ui-icon {
+	background-image: url("../resources/images/ui-icons_cd0a0a_256x240.png")
+		!important;
+	);
+}
+
+.blackIcon .ui-icon {
+	background-image: url("../resources/images/ui-icons_222222_256x240.png")
+		!important;
+	);
+}
+
+.about {
+	font-weight: bold;
+}
+
+.link {
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.link:HOVER {
+	color: red;
+}
+
+.dialogAbout {
+	width: 390px !important;
+	height: 225px !important;
+}
+
+.usuarioLogado {
+	color: #FFF;
+	font-family: calibri, arial !important;
+}
+
+.logoutFooter {
+	text-decoration: none;
+	font-weight: normal;
+	color: #FFF;
+	font-family: calibri, arial !important;
+}
+
+.logoutFooter:HOVER {
+	color: red;
+}
+
+.logoFooter {
+	background: transparent;
+	width: 220px;
+	height: 40px;
+}
+
+.separadorFooter {
+	background: transparent;
+	width: 1000px;
+	height: 5px;
+}
+
+.logoContent {
+	background: transparent;
+	width: 800px;
+	height: 500px;
+	text-align: center;
+	opacity: 0.7;
+	margin-top: 80px;
+}
+
+.header {
+	height: 150px;
+	background-color: #202020;
+}
+
+html,body,.container {
+	height: 100%;
+	background: #BFBFBF;
+}
+
+body>.container {
+	height: auto;
+	min-height: 100%;
+	min-width: 100%;
+}
+
+/* Redimensiona a imagem de acordo com o tamanho da janela */
+.content {
+	/*	background-image: url("../resources/images/fundoPrincipal.jpg");
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-attachment: fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover; 
+	background-size: cover;
+	height: 810px;*/
+	background: #BFBFBF;
+	min-height: auto;
+	min-width: 100%;
+	position: absolute;
+	text-align: center;
+}
+
+.footer {
+	clear: both;
+	position: relative;
+	height: 150px;
+	margin-top: 703px;
+	background-color: #202020;
+	border-top: 1px solid #cbcbcb;
+	text-align: center;
+	-moz-box-shadow: #333 0px -3px 30px 5px;
+	-webkit-box-shadow: #333 0px -3px 30px 5px;
+	box-shadow: #333 0px -3px 30px 5px;
+}
+
+.myButton {
+	width: 110px;
+	height: 50px;
+	text-indent: -20% !important;
+	padding-top: 26px !important;
+	top: 1px !important;
+	border: none !important;
+}
+
+.myButton .myIcon {
+	background-image: url("../resources/images/user27x27.png") !important;
+	width: 27px !important;
+	height: 27px !important;
+	left: 33% !important;
+	top: 22% !important;
+	margin-left: 0px;
+}
+
+.myButton .iconVisitante {
+	background-image: url("../resources/images/visitantes27x27.png")
+		!important;
+	width: 27px !important;
+	height: 27px !important;
+	left: 33% !important;
+	top: 22% !important;
+	margin-left: 0px;
+}
+
+.myButton .iconVisita {
+	background-image: url("../resources/images/visita27x27.png") !important;
+	width: 27px !important;
+	height: 27px !important;
+	left: 33% !important;
+	top: 22% !important;
+	margin-left: 0px;
+}
+
+.myButton .iconDepart {
+	background-image: url("../resources/images/departamento27x27.png")
+		!important;
+	width: 27px !important;
+	height: 27px !important;
+	left: 36% !important;
+	top: 22% !important;
+	margin-left: 0px;
+}
+
+@media screen and (max-width: 1366px) {
+	.footer {
+		margin-top: 404px;
+		transition: margin 1s, width 1s, opacity 1s;
+	}
+	.logoContent {
+		transition: margin 1s, width 1s, opacity 1s;
+		width: 600px;
+		height: 400px;
+		margin-top: 0px;
+	}
+}
+
+
+/* ver amanha: http://jsfiddle.net/Kyle_Sevenoaks/5fryQ/ 
+
+http://stackoverflow.com/questions/4884636/css-header-always-bottom-footer-and-100-content */

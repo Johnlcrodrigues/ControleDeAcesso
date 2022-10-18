@@ -1,0 +1,91 @@
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+body {
+	background-image: url("../resources/images/fundo5.jpg") !important;
+	background-position: center;
+	background-attachment: fixed;;
+}
+
+.help {
+	width: 20px !important;
+	height: 20px !important;
+	bottom: 1.5px;
+	padding-right: 10px;
+	font-weight: bold;
+	float: right;
+}
+
+.ui-widget,.ui-widget .ui-widget {
+	font-size: 90% !important;
+}
+
+.ui-panel-titlebar {
+	width: 500px;
+	font-size: 10pt;
+}
+
+.ui-panel {
+	top: 50%;
+	left: 50%;
+	margin-top: -100px;
+	margin-left: -250px;
+	width: 529px;
+	position: absolute;
+	box-shadow: #6c6c6c -0em 0em 0.5em 0.4em;
+	-moz-box-shadow: #6c6c6c 0em 0em 0.2em 0.2em;
+	-webkit-box-shadow: #6c6c6c 0em 0em 0.2em 0.2em;
+}
+
+.inputText {
+	width: 493px;
+}
+
+.loginButton {
+	width: 50%;
+	text-align: center !important;
+	font-size: 16px !important;
+}
+
+.ui-clock {
+	padding: 4px 10px;
+	padding-top: 4px;
+	padding-right-value: 10px;
+	padding-bottom: 4px;
+	padding-left-value: 10px;
+	padding-left-ltr-source: physical;
+	padding-left-rtl-source: physical;
+	padding-right-ltr-source: physical;
+	padding-right-rtl-source: physical;
+}
+
+.redIcon .ui-icon {
+	background-image: url("../resources/images/ui-icons_cd0a0a_256x240.png")
+		!important;
+	);
+}
+
+/*div {
+	margin: 0;
+	padding: 0;
+	width: auto;
+	height: auto;
+	position: absolute;
+	border: 1px solid;
+	top: 50%;
+	left: 45%;
+	margin-top: -50px;
+	margin-left: -50px;
+	text-align: left;
+	border-radius: 0.1em;
+}*/
+
+/*Effects
+blind, bounce, clip, drop, explode, fold, 
+highlight, puff, pulsate, scale, shake, 
+size, slide are
+available values for showEffect and 
+hideEffect options if you’d like display 
+animations. style="float:left; margin:0 7px 50px 0;"*/

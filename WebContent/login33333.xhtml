@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<f:view encoding="UTF-8" contentType="text/html">
+	<h:head>
+		<title>Bem vindo ao Controle de Acesso!</title>
+		<!--<h:outputStylesheet library="css" name="estilos.css"></h:outputStylesheet> -->
+		<h:outputStylesheet library="css" name="PrimeFacesCustom.css"></h:outputStylesheet>
+		<h:outputText value="Usuário ou senha incorretos!"
+			rendered="#{param.erro}" style="color: darkred" />
+	</h:head>
+	<h:body>
+
+
+
+		<p:panel header="Por favor, entre com o seu login e senha.">
+			<f:facet name="right">
+				<p:commandButton onclick="PF('dlg3').show();" icon="ui-icon-help"
+					styleClass="help">
+				</p:commandButton>
+			</f:facet>
+			<p:dialog header="Informação" widgetVar="dlg3" showEffect="fade"
+				hideEffect="explode" height="50" position="center">
+				<h:outputText
+					value="Utilize o seu nome e senha de usuário cadastrados previamente pelo Administrador." />
+			</p:dialog>
+			<form action="j_spring_security_check" method="post">
+				<center>
+					<h:panelGrid columns="2" cellpadding="10">
+						<p:outputLabel for="j_username" value="Username: " />
+						<p:inputText id="j_username" required="true" size="30" />
+						<p:outputLabel for="j_password" value="Password: " />
+						<p:password id="j_password" required="true" size="30" />
+
+						<h:commandButton value="Login" />
+
+					</h:panelGrid>
+				</center>
+			</form>
+
+		</p:panel>
+		<center>
+			<p:clock />
+		</center>
+
+	</h:body>
+</f:view>
+</html>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<f:view encoding="ISO-8859-1" contentType="text/html">
+	<h:head>
+		<title>Visitante Sucesso</title>
+		<h:outputStylesheet library="css" name="sucessoEstilos.css"></h:outputStylesheet>
+	</h:head>
+
+	<h:body>
+		<h:form>
+			<h:panelGroup layout="block" styleClass="container">
+
+				<h:panelGroup layout="block" styleClass="header">
+					<h:panelGroup layout="block">
+						<p:graphicImage styleClass="logoHeader" library="images"
+							name="controlSecLogoBlackHorizontal.png" />
+					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" styleClass="content">
+					<center>
+						<p:panel id="panel" header="Dados cadastrados com sucesso">
+							<p:panelGrid id="panelGrid" columns="2"
+								columnClasses="label, value" cellspacing="5" styleClass="tabela">
+								<p:outputLabel value="Nome:" />
+								<h:outputText value="#{visitanteBean.visitanteDTO.nome}" />
+
+								<p:outputLabel value="Endereço:" />
+								<h:outputText value="#{visitanteBean.visitanteDTO.endereco}" />
+
+								<p:outputLabel value="CPF:" />
+								<h:outputText value="#{visitanteBean.visitanteDTO.cpf}" />
+									
+								<p:outputLabel value="RG:" />
+								<h:outputText value="#{visitanteBean.visitanteDTO.identidade}" />
+
+								<p:outputLabel value="Telefone:" />
+								<h:outputText value="#{visitanteBean.visitanteDTO.telefone}" />
+
+								<p:outputLabel value="Celular:" />
+								<h:outputText value="#{visitanteBean.visitanteDTO.celular}" />
+							</p:panelGrid>
+
+							<f:facet name="footer">
+								<center>
+									<p:commandButton action="#{visitanteBean.novo()}"
+										value="Continuar Cadastrando" />
+									<p:commandButton action="/restrito/principal"
+										value="Voltar ao Menu Principal" />
+									<p:commandButton value="Imprimir" type="button"
+										icon="ui-icon-print">
+										<p:printer target="panelGrid" />
+									</p:commandButton>
+								</center>
+							</f:facet>
+						</p:panel>
+					</center>
+					<audio id="sucesso" src="../resources/sounds/saveClick.mp3"></audio>
+				</h:panelGroup>
+			</h:panelGroup>
+
+			<script type="text/javascript">
+				window.onload = function() {
+    				document.getElementById("sucesso").play();
+				}
+			</script>
+		</h:form>
+
+	</h:body>
+</f:view>
+</html>
